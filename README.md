@@ -6,6 +6,6 @@ A service composition approach based on the idea of bucket algorithm in traditio
 ### Use Case
 #### Data Source
 #### Case Result
-### Program Entry
-#### Set Service Collection
-#### Drive Program
+### Running Program
+#### Setting Service Collection
+#### Program Entry
