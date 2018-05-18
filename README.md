@@ -26,15 +26,15 @@ val vesseltravelinfo = new QueryService("vesseltravelinof", Set("imo","dest","so
 val S10 = new QueryService("S2",Set(vesseltravelinfo), Set( "dest", "source"),Set(("imo",3000,POSI)),(5,2))<br>
 val S11 = new QueryService("S3",Set(vesseltraj),Set("mmsi", "speed"),Set(("speed",NEGA,30)),(5,1))<br>
 val S12 = new QueryService("S1",Set(vesseltraj,vesselinfo), Set("mmsi", "draught", "speed"),Set(("imo",NEGA,2000)),(5,2))<br>
-val S13 = <br>
+val S13 = 
 new QueryService("S4",Set(vesseltravelinfo,vesselinfo), Set("mmsi", "draught", "dest"), Set(("imo",3000, POSI),("speed",30,POSI)),(5,2))<br>
 val S14 = new QueryService("S5",Set(vesseltraj,vesselinfo), Set(("mmsi",1000, POSI)),(5,1))<br>
 ##### user query:
-val query2 = <br>
+val query2 = 
 new QueryService("Q", Set(vesseltravelinfo, vesseltraj,vesselinfo),Set("mmsi","draught", "speed","dest"),Set(("speed",40,POSI)),(5,4))<br>
 #### Case Result
 ##### print element information in each bucket :
-vesseltravelinof's bucket size is :2
+vesseltravelinof's bucket size is :2<br>
 Set(S2, S4)<br>
 vesseltraj's bucket size is :2<br>
 Set(S1, S5)<br>
