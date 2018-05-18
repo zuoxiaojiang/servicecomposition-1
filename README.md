@@ -34,14 +34,14 @@ val query2 = <br>
 new QueryService("Q", Set(vesseltravelinfo, vesseltraj,vesselinfo),Set("mmsi","draught", "speed","dest"),Set(("speed",40,POSI)),(5,4))<br>
 #### Case Result
 ##### print element information in each bucket :
-vesseltravelinof's bucket size is :2<br>
+vesseltravelinof's bucket size is :2
 Set(S2, S4)<br>
 vesseltraj's bucket size is :2<br>
 Set(S1, S5)<br>
 vesselinfo's bucket size is :3<br>
 Set(S1, S4, S5)<br>
 ##### print executable plans information:
-This case found S5 and S4 can be combined as an executable contained rewriting to answer query2, and naturally S5 needs to generate an <br>
+This case found S5 and S4 can be combined as an executable contained rewriting to answer query2, and naturally S5 needs to generate an 
 instance for it is a service in composition, so the ops information of S5 is also print to console:<br>
 1 --  -- Set(S5, S4) -- Set(mmsi, draught, speed, dest) -- Set((imo,3000,2147483647), (mmsi,1000,2147483647), (speed,30,2147483647)) -- <br>
 (5,2)<br>
