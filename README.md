@@ -18,7 +18,7 @@ val S3 = new QueryService(“S3”,Set(vesseltraj),Set(("speed",NEGA,30)),(5,2))
 ### Use Case
 #### Data Source
 ##### underlying relations:
-val vesselinfo = <br>
+val vesselinfo = 
 new QueryService("vesselinfo", Set("mmsi","imo","callsign","name","type","length","width","positionType","eta","draught"))<br>
 val vesseltraj = new QueryService("vesseltraj", Set("mmsi","long","lat","speed"))<br>
 val vesseltravelinfo = new QueryService("vesseltravelinof", Set("imo","dest","source" ))<br>
