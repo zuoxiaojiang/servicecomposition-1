@@ -55,8 +55,8 @@ This step occurs in DataUtil.scala, where you can set your own query,  underlyin
 structure.<br>
 First, you need to set the underlying relations below the annotation of “data source”,  then set the service/service instance under the <br>
 annotation “service instances and services”, after that you can propose your queries below the annotation “queries”.<br>
-Finally, the variable query needs assigning among your preinstalled queries, and variable services also needs assigning service <br>
-collection. If you wanna some simulated services/service instances as the value of variable services, you could set underlying relations<br>
+Finally, the variable query needs assigning among your preinstalled queries, and variable services also needs assigning service 
+collection. If you wanna some simulated services/service instances as the value of variable services, you could set underlying relations
 as value of simulSource and pass it to the method SourceSImulation.genViews(), at the same time the query and the number you wanna <br>
 generate should also pass to the method.<br>
 #### Program Entry
