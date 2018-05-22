@@ -1,67 +1,59 @@
-# ServiceComposition
-## BucketServiceComposition
-A service composition approach based on the idea of bucket algorithm in traditional data integration.<br>
+# BucketServiceComposition
 
-### Data Structure
-##### Underlying relation : 
-an instance of Class of  QueryService, by giving parameters : name, output column collection, for example:<br>
-val vesseltraj = new QueryService("vesseltraj", Set("mmsi","long","lat","speed"))<br>
-##### User query: 
-an instance of Class QueryService, by giving parameters : name, underlying relation collection, output column collection,  <br>data constraints, time-window, for example:<br>
-val query2 = new QueryService("Q", Set(vesseltravelinfo, vesseltraj,vesselinfo),Set("mmsi","draught",<br> “speed”,"dest"),Set(("speed",40,POSI)),(5,4))<br>
-##### service instance: 
-with a same form of user query, for example:<br>
-val S2 = new QueryService("S2",Set(vesselinfo,vesseltraj),Set("mmsi","callsign","draught","speed"),Set(("speed",30,POSI)),(5,2))<br>
-##### service: 
-the same form of service instance without giving a parameter of output column collection, for example:<br>
-val S3 = new QueryService(“S3”,Set(vesseltraj),Set(("speed",NEGA,30)),(5,2))<br>
-### Use Case
-#### Data Source
-##### underlying relations:
-val vesselinfo = 
-new QueryService("vesselinfo", Set("mmsi","imo","callsign","name","type","length","width","positionType","eta","draught"))<br>
-val vesseltraj = new QueryService("vesseltraj", Set("mmsi","long","lat","speed"))<br>
-val vesseltravelinfo = new QueryService("vesseltravelinof", Set("imo","dest","source" ))<br>
-##### services and service instances
-val S10 = new QueryService("S2",Set(vesseltravelinfo), Set( "dest", "source"),Set(("imo",3000,POSI)),(5,2))<br>
-val S11 = new QueryService("S3",Set(vesseltraj),Set("mmsi", "speed"),Set(("speed",NEGA,30)),(5,1))<br>
-val S12 = new QueryService("S1",Set(vesseltraj,vesselinfo), Set("mmsi", "draught", "speed"),Set(("imo",NEGA,2000)),(5,2))<br>
-val S13 = 
-new QueryService("S4",Set(vesseltravelinfo,vesselinfo), Set("mmsi", "draught", "dest"), Set(("imo",3000, POSI),("speed",30,POSI)),(5,2))<br>
-val S14 = new QueryService("S5",Set(vesseltraj,vesselinfo), Set(("mmsi",1000, POSI)),(5,1))<br>
-##### user query:
-val query2 = 
-new QueryService("Q", Set(vesseltravelinfo, vesseltraj,vesselinfo),Set("mmsi","draught", "speed","dest"),Set(("speed",40,POSI)),(5,4))<br>
-#### Case Result
-##### print element information in each bucket :
-vesseltravelinof's bucket size is :2<br>
-Set(S2, S4)<br>
-vesseltraj's bucket size is :2<br>
-Set(S1, S5)<br>
-vesselinfo's bucket size is :3<br>
-Set(S1, S4, S5)<br>
-##### print executable plans information:
-This case found S5 and S4 can be combined as an executable contained rewriting to answer query2, and naturally S5 needs to generate an 
-instance for it is a service in composition, so the ops information of S5 is also print to console:<br>
-1 --  -- Set(S5, S4) -- Set(mmsi, draught, speed, dest) -- Set((imo,3000,2147483647), (mmsi,1000,2147483647), (speed,30,2147483647)) -- <br>
-(5,2)<br>
-Include query consists of services :<br>
-S5Set(vesseltraj, vesselinfo)Set(name, callsign, imo, draught, long, mmsi, eta, length, type, positionType, width, lat, speed)     <br>
-, and ops is : (Set(draught, mmsi, speed),,Set((speed,40,2147483647)),(5,4))     <br>
-S4Set(vesseltravelinof, vesselinfo)Set(mmsi, draught, dest)<br>
-### Running Program
-#### Setting Service Collection
-This step occurs in DataUtil.scala, where you can set your own query,  underlying relations and service set with the above data <br>
-structure.
-First, you need to set the underlying relations below the annotation of “data source”,  then set the service/service instance under the 
-annotation “service instances and services”, after that you can propose your queries below the annotation “queries”.<br>
-Finally, the variable `query` needs assigning among your preinstalled queries, and variable `services` also needs assigning service 
-collection. If you wanna some simulated services/service instances as the value of variable `services`, you could set underlying relations
-as value of simulSource and pass it to the method `SourceSImulation.genViews()`, at the same time the query and the number you wanna generate should also pass to the method.
-#### Program Entry
-This step occurs in BucketServiceComb.scala, we just need to set the query to variable `query`:<br>
-val query = DataUtil.query<br>
-and then set the existed services/service instances like this:<br>
-val services = DataUtil.services<br>
-or val services = DataUtil.simuServices<br>
-the former is the services specified by your self, the latter is the services you simulated.<br>
+## Setup
+* Download and setup Scala with version of 2.10.6 and JDK with version of 1.7.<br>
+
+### To set underlying relations
+* In `DataUtil.scala`, create underlying relations by providing such parametors :`relationname`,`outputattributes`. For example:<br>
+```scala
+val vesseltraj = new QueryService("vesseltraj", Set("mmsi","long","lat","speed"))
+```
+### To set user queries
+* In `DataUtil.scala`, propose queries based on underlying relations by providing such parameters:`queryname`, `queryattributes`, `dataconstraints`, `timewindow`. For example:<br>
+```scala
+val query1 = new QueryService("Q1", Set(vesselinfo, vesseltraj),Set("mmsi","callsign"),Set(("speed",40,POSI)),(5,4))
+```
+### To select a user query 
+* In `DataUtil.scala`, assigning a value to variable `query` to appoint the query which is going to use:<br>
+```scala
+val query:QueryService = query1
+```
+### To set services or service instances manually
+* In `DataUtil.scala`, create services by providing such parameters:`servicename`, `dataconstraints`, `timewindow`. For example:<br>
+```scala
+val S1 = new QueryService("S1",Set(vesseltraj),Set(("speed",NEGA,30)),(5,2))
+```
+* Create service instances by providing such parameters:`serviceinstancename`, `outputattributes`, `dataconstraints`, `timewindow`. For example:<br>
+```scala
+val S2 = new QueryService("S2",Set(vesseltraj,vesselinfo), Set("mmsi", "draught", "speed"),Set(("imo",NEGA,2000)),(5,2))
+```
+* Load these to a service collection `ucServices` as a use case service source:<br>
+```scala
+val ucServices = List(S1,S2)
+```
+### To set services or service instances by simulating
+* In `DataUtil.scala`, create a relation collection `simulSource` which is used to simulate the service source:<br>
+```scala
+val simulSource:Array[QueryService] = Array[QueryService](Movie,Revenues,Director,vesseltraj,vesseltravelinfo,vesselinfo)
+```
+* Simulate the service source by giving such parameters:`relationcollection`, `query`, `servicesourcesize`. For example:<br>
+```scala
+val simulServices:List[QueryService] = SourceSImulation.geneViews(DataUtil.simulSource,query,1000)
+```
+### To run the driver program
+* In `BucketServiceComb.scala`, assign the `DataUtil.query` to variable `query` as a user query:<br>
+```scala
+val query = DataUtil.query
+```
+* Appoint an service source which is used to generate rewriting service plans, there are two methods to appoint<br> corresponding to two different scenarios，you can run a use case using the `ucServices` which is create manually:<br>
+```scala
+val services = DataUtil.ucServices
+```
+or you can measure the performance of bucket service composition using the `simulServices`:<br>
+```scala
+val services = DataUtil.simulServices
+```
+* After that you can run the program.
+### To analysis result
+* The result will display in the console, including information about service source simulation、 bucket elements、executable service composition collection、 each phase time costs:<br>
+
