@@ -1,5 +1,5 @@
 # BucketServiceComposition
-
+* A approach of service composition based on the idea of bucket algorithm in traditional data integration.
 ## Setup
 * Download and setup Scala with version of 2.10.6 and JDK with version of 1.7.<br>
 
@@ -56,4 +56,4 @@ val services = DataUtil.simulServices
 * After that you can run the program.
 ### To analysis result
 * The result will display in the console, including information about service source simulation、 bucket elements、executable service composition collection、 each phase time costs:<br>
-
+![Image text](https://raw.githubusercontent.com/declouddataservice/servicecomposition/master/imgs/readme.png)
