@@ -1,10 +1,10 @@
 # BucketServiceComposition
-* A approach of service composition based on the idea of bucket algorithm in traditional data integration.
+* An approach of service composition based on the idea of bucket algorithm in traditional data integration.
 ## Setup
 * Download and setup Scala with version of 2.10.6 and JDK with version of 1.7.<br>
 
 ### To set underlying relations
-* In `DataUtil.scala`, create underlying relations by providing such parametors :`relationname`,`outputattributes`. For example:<br>
+* In `DataUtil.scala`, create underlying relations by providing such parameters :`relationname`,`outputattributes`. For example:<br>
 ```scala
 val vesseltraj = new QueryService("vesseltraj", Set("mmsi","long","lat","speed"))
 ```
