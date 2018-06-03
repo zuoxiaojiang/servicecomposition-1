@@ -75,5 +75,5 @@ val S = DataUtil.simulServices.toSet
 ![Image text](https://raw.githubusercontent.com/declouddataservice/servicecomposition/master/imgs/readme.png)
 #### SMinicon
 * The result will display in the console, including information about service source simulation、 bucket elements、executable service composition collection、 each phase time costs:<br>
-![Image text](https://raw.githubusercontent.com/declouddataservice/servicecomposition/master/imgs/readme.png)
+![Image text](https://raw.githubusercontent.com/declouddataservice/servicecomposition/master/imgs/minicon.png)
 
